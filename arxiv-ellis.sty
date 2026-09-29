@@ -75,6 +75,8 @@
     headsep=13pt,
     footskip=30pt
   }
+  % fancyhdr fixed \headwidth before \newgeometry; match the new text width
+  \setlength{\headwidth}{\textwidth}
   \@ifpackageloaded{fullpage}
     {\PackageWarning{arxiv-ellis}{fullpage package not allowed! Overwriting formatting.}}
     {}
