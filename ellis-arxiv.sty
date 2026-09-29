@@ -1,0 +1,302 @@
+% ellis-arxiv.sty -- arXiv preprint style with an institutional logo header.
+%
+% Adapted from the report.sty shipped with arXiv:2609.35457 (CC BY 4.0),
+% which is itself a modification of the NeurIPS 2024 style file
+% (neurips_2024.sty) by Roman Garnett and the many authors of
+% nips15submit_e.sty, including MK and drstrip@sandia.
+%
+% Changes relative to report.sty:
+%   - logo is configurable via \ellislogo[<height>]{<file>}
+%   - removed anonymous-submission mode, line numbers and the
+%     NeurIPS paper-checklist macros (not needed for arXiv)
+%   - optional first-page footnote via \ellisnotice{...}
+%   - graphicx / xcolor / fancyhdr loaded explicitly
+%
+% Usage:
+%   \usepackage{ellis-arxiv}              % natbib loaded automatically
+%   \usepackage[nonatbib]{ellis-arxiv}    % if you load natbib yourself
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ellis-arxiv}[2026/09/29 ELLIS Institute Finland arXiv preprint style]
+
+% nonatbib option: do not load natbib (use in case of a package clash,
+% or pass options to natbib via \PassOptionsToPackage)
+\newif\if@natbib\@natbibtrue
+\DeclareOption{nonatbib}{\@natbibfalse}
+
+% preprint option: adds "Preprint. Under review." at the bottom of page 1
+\newif\if@preprint\@preprintfalse
+\DeclareOption{preprint}{\@preprinttrue}
+
+\ProcessOptions\relax
+
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+\RequirePackage{fancyhdr}
+
+% ---------------------------------------------------------------------
+% Logo configuration
+% ---------------------------------------------------------------------
+% \ellislogo[<height>]{<file>}  -- file may omit its extension; pdflatex
+% will pick .pdf / .png / .jpg. A vector PDF is recommended.
+\newcommand{\@ellislogofile}{ellis-institute-finland-logo}
+\newlength{\@ellislogoheight}
+\setlength{\@ellislogoheight}{19pt}
+\newcommand{\ellislogo}[2][]{%
+  \if\relax\detokenize{#1}\relax\else\setlength{\@ellislogoheight}{#1}\fi
+  \renewcommand{\@ellislogofile}{#2}%
+}
+
+% Optional footnote at the bottom of page 1 (empty by default)
+\newcommand{\@noticestring}{}
+\if@preprint
+  \renewcommand{\@noticestring}{Preprint. Under review.}
+\fi
+\newcommand{\ellisnotice}[1]{\renewcommand{\@noticestring}{#1}}
+
+% fonts
+\renewcommand{\rmdefault}{ptm}
+\renewcommand{\sfdefault}{phv}
+
+% acknowledgments
+\RequirePackage{environ}
+\newcommand{\acksection}{\section*{Acknowledgments and Disclosure of Funding}}
+\NewEnviron{ack}{%
+  \acksection
+  \BODY
+}
+
+% load natbib unless told otherwise
+\if@natbib
+  \RequirePackage{natbib}
+\fi
+
+% set page geometry
+\RequirePackage[verbose=true,letterpaper]{geometry}
+\AtBeginDocument{
+  \newgeometry{
+    textheight=9in,
+    textwidth=5.5in,
+    top=1in,
+    headheight=24pt,
+    headsep=13pt,
+    footskip=30pt
+  }
+  \@ifpackageloaded{fullpage}
+    {\PackageWarning{ellis-arxiv}{fullpage package not allowed! Overwriting formatting.}}
+    {}
+}
+
+\widowpenalty=10000
+\clubpenalty=10000
+\flushbottom
+\sloppy
+
+% font sizes with reduced leading
+\renewcommand{\normalsize}{%
+  \@setfontsize\normalsize\@xpt\@xipt
+  \abovedisplayskip      7\p@ \@plus 2\p@ \@minus 5\p@
+  \abovedisplayshortskip \z@ \@plus 3\p@
+  \belowdisplayskip      \abovedisplayskip
+  \belowdisplayshortskip 4\p@ \@plus 3\p@ \@minus 3\p@
+}
+\normalsize
+\renewcommand{\small}{%
+  \@setfontsize\small\@ixpt\@xpt
+  \abovedisplayskip      6\p@ \@plus 1.5\p@ \@minus 4\p@
+  \abovedisplayshortskip \z@  \@plus 2\p@
+  \belowdisplayskip      \abovedisplayskip
+  \belowdisplayshortskip 3\p@ \@plus 2\p@   \@minus 2\p@
+}
+\renewcommand{\footnotesize}{\@setfontsize\footnotesize\@ixpt\@xpt}
+\renewcommand{\scriptsize}{\@setfontsize\scriptsize\@viipt\@viiipt}
+\renewcommand{\tiny}{\@setfontsize\tiny\@vipt\@viipt}
+\renewcommand{\large}{\@setfontsize\large\@xiipt{14}}
+\renewcommand{\Large}{\@setfontsize\Large\@xivpt{16}}
+\renewcommand{\LARGE}{\@setfontsize\LARGE\@xviipt{20}}
+\renewcommand{\huge}{\@setfontsize\huge\@xxpt{23}}
+\renewcommand{\Huge}{\@setfontsize\Huge\@xxvpt{28}}
+
+% sections with less space
+\providecommand{\section}{}
+\renewcommand{\section}{%
+  \@startsection{section}{1}{\z@}%
+                {-2.0ex \@plus -0.5ex \@minus -0.2ex}%
+                { 1.5ex \@plus  0.3ex \@minus  0.2ex}%
+                {\large\bf\raggedright}%
+}
+\providecommand{\subsection}{}
+\renewcommand{\subsection}{%
+  \@startsection{subsection}{2}{\z@}%
+                {-1.8ex \@plus -0.5ex \@minus -0.2ex}%
+                { 0.8ex \@plus  0.2ex}%
+                {\normalsize\bf\raggedright}%
+}
+\providecommand{\subsubsection}{}
+\renewcommand{\subsubsection}{%
+  \@startsection{subsubsection}{3}{\z@}%
+                {-1.5ex \@plus -0.5ex \@minus -0.2ex}%
+                { 0.5ex \@plus  0.2ex}%
+                {\normalsize\bf\raggedright}%
+}
+\providecommand{\paragraph}{}
+\renewcommand{\paragraph}{%
+  \@startsection{paragraph}{4}{\z@}%
+                {1.5ex \@plus 0.5ex \@minus 0.2ex}%
+                {-1em}%
+                {\normalsize\bf}%
+}
+\providecommand{\subparagraph}{}
+\renewcommand{\subparagraph}{%
+  \@startsection{subparagraph}{5}{\z@}%
+                {1.5ex \@plus 0.5ex \@minus 0.2ex}%
+                {-1em}%
+                {\normalsize\bf}%
+}
+\providecommand{\subsubsubsection}{}
+\renewcommand{\subsubsubsection}{%
+  \vskip5pt{\noindent\normalsize\rm\raggedright}%
+}
+
+% float placement
+\renewcommand{\topfraction      }{0.85}
+\renewcommand{\bottomfraction   }{0.4}
+\renewcommand{\textfraction     }{0.1}
+\renewcommand{\floatpagefraction}{0.7}
+
+\newlength{\@ellisabovecaptionskip}\setlength{\@ellisabovecaptionskip}{7\p@}
+\newlength{\@ellisbelowcaptionskip}\setlength{\@ellisbelowcaptionskip}{\z@}
+
+\setlength{\abovecaptionskip}{\@ellisabovecaptionskip}
+\setlength{\belowcaptionskip}{\@ellisbelowcaptionskip}
+
+% swap above/belowcaptionskip lengths for tables
+\renewenvironment{table}
+  {\setlength{\abovecaptionskip}{\@ellisbelowcaptionskip}%
+   \setlength{\belowcaptionskip}{\@ellisabovecaptionskip}%
+   \@float{table}}
+  {\end@float}
+
+% footnote formatting
+\setlength{\footnotesep }{6.65\p@}
+\setlength{\skip\footins}{9\p@ \@plus 4\p@ \@minus 2\p@}
+\renewcommand{\footnoterule}{\kern-3\p@ \hrule width 12pc \kern 2.6\p@}
+\setcounter{footnote}{0}
+
+% paragraph formatting
+\setlength{\parindent}{\z@}
+\setlength{\parskip  }{5.5\p@}
+
+% list formatting
+\setlength{\topsep       }{4\p@ \@plus 1\p@   \@minus 2\p@}
+\setlength{\partopsep    }{1\p@ \@plus 0.5\p@ \@minus 0.5\p@}
+\setlength{\itemsep      }{2\p@ \@plus 1\p@   \@minus 0.5\p@}
+\setlength{\parsep       }{2\p@ \@plus 1\p@   \@minus 0.5\p@}
+\setlength{\leftmargin   }{3pc}
+\setlength{\leftmargini  }{\leftmargin}
+\setlength{\leftmarginii }{2em}
+\setlength{\leftmarginiii}{1.5em}
+\setlength{\leftmarginiv }{1.0em}
+\setlength{\leftmarginv  }{0.5em}
+\def\@listi  {\leftmargin\leftmargini}
+\def\@listii {\leftmargin\leftmarginii
+              \labelwidth\leftmarginii
+              \advance\labelwidth-\labelsep
+              \topsep  2\p@ \@plus 1\p@    \@minus 0.5\p@
+              \parsep  1\p@ \@plus 0.5\p@ \@minus 0.5\p@
+              \itemsep \parsep}
+\def\@listiii{\leftmargin\leftmarginiii
+              \labelwidth\leftmarginiii
+              \advance\labelwidth-\labelsep
+              \topsep    1\p@ \@plus 0.5\p@ \@minus 0.5\p@
+              \parsep    \z@
+              \partopsep 0.5\p@ \@plus 0\p@ \@minus 0.5\p@
+              \itemsep \topsep}
+\def\@listiv {\leftmargin\leftmarginiv
+              \labelwidth\leftmarginiv
+              \advance\labelwidth-\labelsep}
+\def\@listv  {\leftmargin\leftmarginv
+              \labelwidth\leftmarginv
+              \advance\labelwidth-\labelsep}
+\def\@listvi {\leftmargin\leftmarginvi
+              \labelwidth\leftmarginvi
+              \advance\labelwidth-\labelsep}
+
+% create title
+\providecommand{\maketitle}{}
+\renewcommand{\maketitle}{%
+  \par
+  \begingroup
+    \renewcommand{\thefootnote}{\fnsymbol{footnote}}
+    % for perfect author name centering
+    \renewcommand{\@makefnmark}{\hbox to \z@{$^{\@thefnmark}$\hss}}
+    % The footnote-mark was overlapping the footnote-text,
+    % added the following to fix this problem               (MK)
+    \long\def\@makefntext##1{%
+      \parindent 1em\noindent
+      \hbox to 1.8em{\hss $\m@th ^{\@thefnmark}$}##1
+    }
+    \thispagestyle{empty}
+    \@maketitle
+    \@thanks
+    \@notice
+  \endgroup
+  \let\maketitle\relax
+  \let\thanks\relax
+}
+
+% title block: centered title and authors; switches page 1 to the logo header
+\def\@maketitle{
+    \vbox{
+        \hsize\textwidth
+        {\centering {\Large\bf \@title\par}}
+        \vspace{-0.3cm}
+        \begin{quote}\rule{\z@}{6pt} {\centering\par{\@author}\par}\end{quote}%
+        \vskip 0.3in minus 0.1in
+    }%
+    \thispagestyle{firstpage}
+}
+
+% notice at the bottom of the first page (only if non-empty)
+\newcommand{\ftype@noticebox}{8}
+\newcommand{\@notice}{%
+  \if\relax\detokenize\expandafter{\@noticestring}\relax\else
+    % give a bit of extra room back to authors on first page
+    \enlargethispage{2\baselineskip}%
+    \@float{noticebox}[b]%
+      \footnotesize\@noticestring%
+    \end@float%
+  \fi
+}
+
+% abstract styling
+\renewenvironment{abstract}%
+{%
+  \vskip 0.075in%
+  \centerline%
+  {\large\bf Abstract}%
+  \vspace{0.5ex}%
+  \begin{quote}%
+}
+{
+  \par%
+  \end{quote}%
+  \vskip 1ex%
+}
+
+% ---------------------------------------------------------------------
+% Page styles: thin gray rule in the header on every page; the logo sits
+% above the rule on the first page only.
+% ---------------------------------------------------------------------
+\definecolor{ellisheadrule}{HTML}{4D4D4D}
+\pagestyle{fancy}
+\fancyhead{}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\headrule}{{\color{ellisheadrule}\hrule\@height\headrulewidth\@width\headwidth\vskip-\headrulewidth}}
+
+\fancypagestyle{firstpage}{
+  \lhead{\includegraphics[height=\@ellislogoheight]{\@ellislogofile}}
+  \renewcommand{\headrule}{{\color{ellisheadrule}\hrule\@height\headrulewidth\@width\headwidth\vskip-\headrulewidth}}
+}
+
+\endinput

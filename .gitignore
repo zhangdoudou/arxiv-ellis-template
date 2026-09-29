@@ -1,0 +1,13 @@
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.toc
+/main.pdf
+/arxiv-upload/
+/arxiv-upload.tar.gz
+/assets/

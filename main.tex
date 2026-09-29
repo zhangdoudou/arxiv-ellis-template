@@ -1,0 +1,72 @@
+\documentclass{article}
+
+% Replaces e.g. \usepackage[final]{neurips_2025} / icml2026 / iclr2026_conference.
+% natbib is loaded automatically; pass [nonatbib] to load it yourself.
+\PassOptionsToPackage{numbers,sort&compress}{natbib}
+\usepackage{ellis-arxiv}
+
+% Logo (default: ellis-institute-finland-logo.{pdf,png}, height 19pt)
+% \ellislogo[17pt]{ellis-institute-finland-logo}
+
+% Optional footnote at the bottom of page 1
+% \ellisnotice{Accepted at the 39th Conference on Neural Information Processing Systems (NeurIPS 2025).}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{hyperref,url}
+
+\definecolor{citecolor}{HTML}{0071BC}
+\definecolor{linkcolor}{HTML}{ED1C24}
+\hypersetup{colorlinks=true,linkcolor=linkcolor,citecolor=citecolor,urlcolor=citecolor}
+
+\title{Paper Title Goes Here:\\ A Subtitle on a Second Line}
+
+\author{\textbf{First Author}\textsuperscript{1,2}\thanks{Equal contribution.}\quad
+  \textbf{Second Author}\textsuperscript{1}\footnotemark[1]\quad
+  \textbf{Third Author}\textsuperscript{2}\thanks{Corresponding author: \texttt{name@aalto.fi}}\\[7pt]
+  {\small\textsuperscript{1}ELLIS Institute Finland\quad
+  \textsuperscript{2}Aalto University}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This is an example abstract. Replace it with your own. The first page carries the
+ELLIS Institute Finland logo above a thin rule; the rest of the paper follows a
+clean single-column NeurIPS-like layout suitable for arXiv.
+\end{abstract}
+
+\section{Introduction}
+Body text goes here. Citations work as usual~\citep{vaswani2017attention}.
+
+\begin{table}[h]
+  \caption{An example table.}
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    Method & Acc. & Params \\
+    \midrule
+    Baseline & 71.2 & 86M \\
+    Ours     & \textbf{74.5} & 86M \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Method}
+An equation:
+\begin{equation}
+  \mathcal{L}(\theta) = \mathbb{E}_{x\sim p}\left[-\log q_\theta(x)\right].
+\end{equation}
+
+\begin{ack}
+Funding and acknowledgments go here.
+\end{ack}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}
