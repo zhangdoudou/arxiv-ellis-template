@@ -8,7 +8,7 @@ pdf:
 arxiv: pdf
 	rm -rf arxiv-upload arxiv-upload.tar.gz
 	mkdir arxiv-upload
-	cp $(MAIN).tex $(MAIN).bbl ellis-arxiv.sty ellis-institute-finland-logo.* arxiv-upload/
+	cp $(MAIN).tex $(MAIN).bbl arxiv-ellis.sty ellis-institute-finland-logo.* arxiv-upload/
 	tar -czf arxiv-upload.tar.gz -C arxiv-upload .
 	@echo "Add your figures/ directory to arxiv-upload/ before uploading if you have one."
 

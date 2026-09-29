@@ -10,24 +10,24 @@ No cover page and no "technical report" framing: just the usual title, authors, 
 
 | File | Purpose |
 |---|---|
-| `ellis-arxiv.sty` | Style file (page layout, title block, logo header) |
+| `arxiv-ellis.sty` | Style file (page layout, title block, logo header) |
 | `ellis-institute-finland-logo.png` | Official ELLIS Institute Finland horizontal logo (transparent PNG, 2578×254) |
 | `main.tex`, `references.bib` | Minimal example |
 | `Makefile` | `make` builds the PDF, `make arxiv` packs an upload tarball |
 
 ## Converting a conference submission (NeurIPS / ICML / ICLR ...)
 
-1. Copy `ellis-arxiv.sty` and `ellis-institute-finland-logo.png` next to your `main.tex`.
+1. Copy `arxiv-ellis.sty` and `ellis-institute-finland-logo.png` next to your `main.tex`.
 2. Replace the conference style line, e.g.
 
    ```latex
    % \usepackage[final]{neurips_2025}
-   \usepackage{ellis-arxiv}
+   \usepackage{arxiv-ellis}
    ```
 
    `natbib` is loaded automatically. Set its options with
-   `\PassOptionsToPackage{numbers,sort&compress}{natbib}` *before* `\usepackage{ellis-arxiv}`,
-   or use `\usepackage[nonatbib]{ellis-arxiv}` and load natbib yourself.
+   `\PassOptionsToPackage{numbers,sort&compress}{natbib}` *before* `\usepackage{arxiv-ellis}`,
+   or use `\usepackage[nonatbib]{arxiv-ellis}` and load natbib yourself.
 3. For ICML/ICLR sources, also remove the conference-specific title macros
    (`\icmltitle`, `\icmlauthor`, `\iclrfinalcopy`, ...) and use plain `\title{}` / `\author{}`
    as in `main.tex`. Two-column ICML papers will be re-flowed into one column; check figure widths.
@@ -36,7 +36,7 @@ No cover page and no "technical report" framing: just the usual title, authors, 
 ## Options
 
 ```latex
-\usepackage[preprint]{ellis-arxiv}   % adds "Preprint. Under review." at the bottom of page 1
+\usepackage[preprint]{arxiv-ellis}   % adds "Preprint. Under review." at the bottom of page 1
 \ellislogo[17pt]{my-logo}            % change logo height and/or file (default 19pt)
 \ellisnotice{Accepted at NeurIPS 2025.}  % custom footnote at the bottom of page 1
 ```

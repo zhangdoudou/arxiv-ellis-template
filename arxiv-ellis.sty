@@ -1,4 +1,4 @@
-% ellis-arxiv.sty -- arXiv preprint style with an institutional logo header.
+% arxiv-ellis.sty -- arXiv preprint style with an institutional logo header.
 %
 % Adapted from the report.sty shipped with arXiv:2609.35457 (CC BY 4.0),
 % which is itself a modification of the NeurIPS 2024 style file
@@ -13,11 +13,11 @@
 %   - graphicx / xcolor / fancyhdr loaded explicitly
 %
 % Usage:
-%   \usepackage{ellis-arxiv}              % natbib loaded automatically
-%   \usepackage[nonatbib]{ellis-arxiv}    % if you load natbib yourself
+%   \usepackage{arxiv-ellis}              % natbib loaded automatically
+%   \usepackage[nonatbib]{arxiv-ellis}    % if you load natbib yourself
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ellis-arxiv}[2026/09/29 ELLIS Institute Finland arXiv preprint style]
+\ProvidesPackage{arxiv-ellis}[2026/09/29 ELLIS Institute Finland arXiv preprint style]
 
 % nonatbib option: do not load natbib (use in case of a package clash,
 % or pass options to natbib via \PassOptionsToPackage)
@@ -83,7 +83,7 @@
     footskip=30pt
   }
   \@ifpackageloaded{fullpage}
-    {\PackageWarning{ellis-arxiv}{fullpage package not allowed! Overwriting formatting.}}
+    {\PackageWarning{arxiv-ellis}{fullpage package not allowed! Overwriting formatting.}}
     {}
 }
 
