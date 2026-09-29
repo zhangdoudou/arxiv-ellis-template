@@ -10,6 +10,7 @@
 %   - removed anonymous-submission mode, line numbers and the
 %     NeurIPS paper-checklist macros (not needed for arXiv)
 %   - common packages (amsmath, booktabs, microtype, hyperref, ...) loaded here
+%   - abstract set in a rounded card, with optional links below \tcblower
 %
 % Usage:
 %   \usepackage{arxiv-ellis}              % natbib loaded automatically
@@ -38,6 +39,7 @@
 \RequirePackage{booktabs}
 \RequirePackage{microtype}
 \RequirePackage{url}
+\RequirePackage[skins]{tcolorbox}
 
 % Footnote at the bottom of page 1: empty, or "Preprint. Under review." with [preprint]
 \newcommand{\@noticestring}{}
@@ -260,19 +262,21 @@
   \fi
 }
 
-% abstract styling
-\renewenvironment{abstract}%
-{%
-  \vskip 0.075in%
-  \centerline%
-  {\large\bf Abstract}%
-  \vspace{0.5ex}%
-  \begin{quote}%
-}
-{
-  \par%
-  \end{quote}%
-  \vskip 1ex%
+% abstract styling: rounded card; content after \tcblower (e.g. project
+% links) is set below a thin separator line
+\definecolor{ellisabstractbg}{HTML}{F1F4F7}
+\definecolor{ellisabstractfg}{HTML}{1C2B33}
+\definecolor{ellisabstractrule}{HTML}{C9D1D9}
+\let\abstract\relax
+\let\endabstract\relax
+\newtcolorbox{abstract}{
+  enhanced, frame hidden, colback=ellisabstractbg, coltext=ellisabstractfg,
+  arc=10pt, left=14pt, right=14pt, top=12pt, bottom=12pt,
+  before skip=0.075in, after skip=0.2in,
+  fontupper=\normalsize, fontlower=\small,
+  before upper={{\large\bf Abstract}\par\vspace{0.6ex}},
+  segmentation style={solid, draw=ellisabstractrule, line width=0.5pt},
+  middle=8pt
 }
 
 % ---------------------------------------------------------------------

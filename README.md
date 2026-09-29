@@ -11,7 +11,7 @@ section, equation, table, figure, and appendix examples.
 
 1. Click **Use this template** on GitHub, or download the repository as a ZIP.
 2. Edit the title, authors, affiliations, and PDF metadata in
-   `main.tex`. Uncomment and replace the optional resource links if needed.
+   `main.tex`. Replace the project links below `\tcblower` in the abstract, or delete them.
 3. Replace the example text in `main.tex` and the example entry in `references.bib`.
 4. Build the PDF using the command below.
 
