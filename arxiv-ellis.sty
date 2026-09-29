@@ -263,10 +263,9 @@
 }
 
 % abstract styling: rounded card; content after \tcblower (e.g. project
-% links) is set below a thin separator line
+% links) is set below the abstract text
 \definecolor{ellisabstractbg}{HTML}{F1F4F7}
 \definecolor{ellisabstractfg}{HTML}{1C2B33}
-\definecolor{ellisabstractrule}{HTML}{C9D1D9}
 \let\abstract\relax
 \let\endabstract\relax
 \newtcolorbox{abstract}{
@@ -275,8 +274,7 @@
   before skip=0.075in, after skip=0.2in,
   fontupper=\normalsize, fontlower=\small,
   before upper={{\large\bf Abstract}\par\vspace{0.6ex}},
-  segmentation style={solid, draw=ellisabstractrule, line width=0.5pt},
-  middle=8pt
+  segmentation hidden, middle=6pt
 }
 
 % ---------------------------------------------------------------------
