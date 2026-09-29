@@ -1,19 +1,16 @@
-# Build the example and package an arXiv-ready tarball.
-MAIN ?= main
+.PHONY: pdf arxiv clean
+
+OUT := output/pdf
 
 pdf:
-	latexmk -pdf -interaction=nonstopmode $(MAIN).tex
+	latexmk -pdf -interaction=nonstopmode -file-line-error -synctex=1 -outdir=$(OUT) main.tex
 
-# arXiv needs the .bbl (it does not run bibtex reliably), the .sty and the logo.
+# arXiv upload bundle: sources, style, assets and the generated .bbl.
 arxiv: pdf
-	rm -rf arxiv-upload arxiv-upload.tar.gz
-	mkdir arxiv-upload
-	cp $(MAIN).tex $(MAIN).bbl arxiv-ellis.sty ellis-institute-finland-logo.* arxiv-upload/
-	tar -czf arxiv-upload.tar.gz -C arxiv-upload .
-	@echo "Add your figures/ directory to arxiv-upload/ before uploading if you have one."
+	tar -czf arxiv-upload.tar.gz --exclude='assets/ELLIS' \
+	  main.tex arxiv-ellis.sty references.bib assets -C $(OUT) main.bbl
+	@echo "Wrote arxiv-upload.tar.gz"
 
 clean:
-	latexmk -C $(MAIN).tex
-	rm -rf arxiv-upload arxiv-upload.tar.gz
-
-.PHONY: pdf arxiv clean
+	latexmk -c -outdir=$(OUT) main.tex
+	rm -f arxiv-upload.tar.gz

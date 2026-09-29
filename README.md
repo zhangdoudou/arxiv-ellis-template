@@ -1,65 +1,70 @@
-# arXiv template with ELLIS Institute Finland logo
+# ELLIS Institute Finland arXiv Template
 
-A single-column, NeurIPS-style LaTeX template for posting papers to **arXiv** with the
-**ELLIS Institute Finland** logo in the top-left corner of the first page, above a thin rule.
-No cover page and no "technical report" framing: just the usual title, authors, abstract and body.
+A single-column LaTeX preprint template for arXiv with the ELLIS Institute Finland
+logo in the top-left corner of the first page, above a thin rule. Includes
+NeurIPS-style Times typography, US-letter pages, numeric citations, and generic
+section, equation, table, figure, and appendix examples.
 
-![first page preview](docs/preview.png)
+[View the compiled example](output/pdf/main.pdf).
 
-## Files
+## Start a paper
 
-| File | Purpose |
-|---|---|
-| `arxiv-ellis.sty` | Style file (page layout, title block, logo header) |
-| `ellis-institute-finland-logo.png` | Official ELLIS Institute Finland horizontal logo (transparent PNG, 2578×254) |
-| `main.tex`, `references.bib` | Minimal example |
-| `Makefile` | `make` builds the PDF, `make arxiv` packs an upload tarball |
+1. Click **Use this template** on GitHub, or download the repository as a ZIP.
+2. Edit the title, authors, affiliations, email addresses, and PDF metadata in
+   `main.tex`. Uncomment and replace the optional resource links if needed.
+3. Replace the example text in `main.tex` and the example entry in `references.bib`.
+4. Put figures in `assets/`.
+5. Build the PDF using the command below.
 
-## Converting a conference submission (NeurIPS / ICML / ICLR ...)
-
-1. Copy `arxiv-ellis.sty` and `ellis-institute-finland-logo.png` next to your `main.tex`.
-2. Replace the conference style line, e.g.
-
-   ```latex
-   % \usepackage[final]{neurips_2025}
-   \usepackage{arxiv-ellis}
-   ```
-
-   `natbib` is loaded automatically. Set its options with
-   `\PassOptionsToPackage{numbers,sort&compress}{natbib}` *before* `\usepackage{arxiv-ellis}`,
-   or use `\usepackage[nonatbib]{arxiv-ellis}` and load natbib yourself.
-3. For ICML/ICLR sources, also remove the conference-specific title macros
-   (`\icmltitle`, `\icmlauthor`, `\iclrfinalcopy`, ...) and use plain `\title{}` / `\author{}`
-   as in `main.tex`. Two-column ICML papers will be re-flowed into one column; check figure widths.
-4. Compile with **pdflatex** (arXiv's default).
-
-## Options
+`main.tex` is the root document. Styling lives in `arxiv-ellis.sty`.
+The logo is set by one line in the `firstpage` style of `arxiv-ellis.sty`:
 
 ```latex
-\usepackage[preprint]{arxiv-ellis}   % adds "Preprint. Under review." at the bottom of page 1
-\ellislogo[17pt]{my-logo}            % change logo height and/or file (default 19pt)
-\ellisnotice{Accepted at NeurIPS 2025.}  % custom footnote at the bottom of page 1
+\fancypagestyle{firstpage}{
+  \lhead{
+  \includegraphics[height=19pt]{assets/ellis-institute-finland-logo.png}}
+  ...
+}
 ```
 
-The `ack` environment (`\begin{ack} ... \end{ack}`) gives a NeurIPS-style
-"Acknowledgments and Disclosure of Funding" section.
+Change the file or height there, or delete the `\includegraphics` line to omit the logo.
 
-## Uploading to arXiv
+For author-year citations, remove the `\PassOptionsToPackage{numbers,...}{natbib}`
+line in `main.tex`.
 
-```bash
-make arxiv     # -> arxiv-upload.tar.gz with main.tex, main.bbl, .sty, logo
+## Build locally
+
+Install a TeX distribution such as TeX Live or MacTeX with `latexmk` and BibTeX.
+
+```sh
+make pdf
 ```
 
-Include the generated `.bbl` (arXiv does not run BibTeX reliably), and copy your `figure/`
-directory into `arxiv-upload/` before re-running `tar` if your paper has figures.
+Or run the equivalent command directly:
 
-## Attribution and license
+```sh
+latexmk -pdf -interaction=nonstopmode -file-line-error -synctex=1 -outdir=output/pdf main.tex
+```
 
-- The layout is adapted from the `report.sty` in the arXiv source of
-  [arXiv:2609.35457](https://arxiv.org/abs/2609.35457) (Chen et al., 2026), distributed under
-  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Changes: configurable logo,
-  removal of anonymous-submission/line-number/checklist code, optional first-page notice.
-- That file in turn derives from the NeurIPS 2024 style file by Roman Garnett and the authors of
-  `nips15submit_e.sty`.
-- The ELLIS Institute Finland logo is a trademark of ELLIS Institute Finland and is **not** covered
-  by the license above. Use it only for work affiliated with the institute and follow its brand guidelines.
+The output is `output/pdf/main.pdf`. `make clean` removes auxiliary files and
+keeps the PDF. Rebuild and commit the example PDF after template changes.
+
+## Overleaf and arXiv
+
+For Overleaf, upload the repository ZIP, select `main.tex` as the main document,
+and use pdfLaTeX.
+
+For arXiv, `make arxiv` writes `arxiv-upload.tar.gz` containing `main.tex`,
+`arxiv-ellis.sty`, `references.bib`, `assets/`, and the generated `main.bbl`.
+Upload that archive and select pdfLaTeX.
+
+This is a preprint style. For conference submissions, use the venue's required
+template and anonymity rules; this template has no anonymous review mode.
+
+## Provenance
+
+The layout is adapted from the arXiv source of
+[arXiv:2609.35457](https://arxiv.org/abs/2609.35457) (CC BY 4.0).
+Paper-specific prose, author identities, figures, bibliography, and the original
+logo have been removed. See [ATTRIBUTION.md](ATTRIBUTION.md) for the source and
+changes, and [LICENSE](LICENSE) for reuse terms and the logo exception.

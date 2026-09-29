@@ -1,72 +1,113 @@
+% !TEX program = pdflatex
 \documentclass{article}
 
-% Replaces e.g. \usepackage[final]{neurips_2025} / icml2026 / iclr2026_conference.
-% natbib is loaded automatically; pass [nonatbib] to load it yourself.
+% Numeric citations; remove this line for author-year.
 \PassOptionsToPackage{numbers,sort&compress}{natbib}
 \usepackage{arxiv-ellis}
 
-% Logo (default: ellis-institute-finland-logo.{pdf,png}, height 19pt)
-% \ellislogo[17pt]{ellis-institute-finland-logo}
+% Add your own packages and notation here.
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
 
-% Optional footnote at the bottom of page 1
-% \ellisnotice{Accepted at the 39th Conference on Neural Information Processing Systems (NeurIPS 2025).}
-
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb}
-\usepackage{booktabs}
-\usepackage{microtype}
-\usepackage{hyperref,url}
-
-\definecolor{citecolor}{HTML}{0071BC}
-\definecolor{linkcolor}{HTML}{ED1C24}
-\hypersetup{colorlinks=true,linkcolor=linkcolor,citecolor=citecolor,urlcolor=citecolor}
-
-\title{Paper Title Goes Here:\\ A Subtitle on a Second Line}
-
+% Replace the title, authors, affiliations and contact information.
+\title{Your Paper Title:\\A Descriptive Subtitle}
 \author{\textbf{First Author}\textsuperscript{1,2}\thanks{Equal contribution.}\quad
   \textbf{Second Author}\textsuperscript{1}\footnotemark[1]\quad
-  \textbf{Third Author}\textsuperscript{2}\thanks{Corresponding author: \texttt{name@aalto.fi}}\\[7pt]
+  \textbf{Third Author}\textsuperscript{2}\thanks{Corresponding author: \texttt{first.author@aalto.fi}}\\[7pt]
   {\small\textsuperscript{1}ELLIS Institute Finland\quad
-  \textsuperscript{2}Aalto University}}
+  \textsuperscript{2}Aalto University}
+  % Optional resource links: uncomment and replace.
+  % \\[6pt]{\small\href{https://example.com}{Project page}\quad
+  % \href{https://github.com/your-org/your-repo}{Code}}
+}
+\hypersetup{pdftitle={Your Paper Title: A Descriptive Subtitle},
+            pdfauthor={First Author, Second Author, Third Author}}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-This is an example abstract. Replace it with your own. The first page carries the
-ELLIS Institute Finland logo above a thin rule; the rest of the paper follows a
-clean single-column NeurIPS-like layout suitable for arXiv.
+State the problem, explain the gap in prior work, summarize your approach,
+and report the main findings. Replace this paragraph with a self-contained
+abstract. This template contains illustrative formatting examples only.
 \end{abstract}
 
 \section{Introduction}
-Body text goes here. Citations work as usual~\citep{vaswani2017attention}.
+\label{sec:introduction}
+Introduce the research question and explain why it matters. Describe the
+limitations of existing approaches and summarize your contributions.
+Section~\ref{sec:method} illustrates an equation, and
+Section~\ref{sec:experiments} illustrates a table and a figure.
 
-\begin{table}[h]
-  \caption{An example table.}
+\section{Related Work}
+\label{sec:related}
+Organize prior work by the ideas most relevant to your research question.
+A textual citation looks like \citet{vaswani2017attention}, and a
+parenthetical citation looks like \citep{vaswani2017attention}.
+
+\section{Method}
+\label{sec:method}
+Define the task, notation, assumptions and approach. For example, a generic
+empirical objective can be written as
+\begin{equation}
+  \mathcal{L}(\theta) = \frac{1}{N}\sum_{i=1}^{N}
+  \ell\bigl(f_{\theta}(x_i),y_i\bigr),
+  \label{eq:objective}
+\end{equation}
+where $N$ is the number of examples, $f_{\theta}$ is a parameterized model
+and $\ell$ is a loss function.
+
+\section{Experiments}
+\label{sec:experiments}
+\subsection{Experimental Setup}
+Describe datasets, baselines, evaluation metrics, implementation details
+and computational resources.
+
+\subsection{Results}
+Table~\ref{tab:results} and Figure~\ref{fig:example} are formatting examples.
+Dashes are placeholders, not measured values.
+
+\begin{table}[htbp]
+  \caption{Example results table. Replace the method names, metrics and placeholders.}
+  \label{tab:results}
   \centering
   \begin{tabular}{lcc}
     \toprule
-    Method & Acc. & Params \\
+    Method & Metric A $\uparrow$ & Metric B $\uparrow$ \\
     \midrule
-    Baseline & 71.2 & 86M \\
-    Ours     & \textbf{74.5} & 86M \\
+    Baseline        & --- & --- \\
+    Proposed method & --- & --- \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-\section{Method}
-An equation:
-\begin{equation}
-  \mathcal{L}(\theta) = \mathbb{E}_{x\sim p}\left[-\log q_\theta(x)\right].
-\end{equation}
+\begin{figure}[htbp]
+  \centering
+  \fbox{\parbox[c][1.8cm][c]{0.86\linewidth}{\centering
+    Your figure here\\[4pt]
+    Replace this box with \texttt{\string\includegraphics\{assets/your-figure\}}.}}
+  \caption{Example figure placement. Describe the figure and its key takeaway.}
+  \label{fig:example}
+\end{figure}
+
+\section{Conclusion}
+Summarize the main contribution and findings, and identify directions for
+future work.
 
 \begin{ack}
-Funding and acknowledgments go here.
+Add funding acknowledgments and recognize contributors as appropriate.
+Remove this section if it is not needed.
 \end{ack}
 
 \bibliographystyle{plainnat}
 \bibliography{references}
+
+% Add \clearpage here if the appendix should start on a separate page.
+\appendix
+\section{Additional Details}
+\label{sec:appendix}
+Place supplementary methods, implementation details, additional analyses
+or examples here.
 
 \end{document}

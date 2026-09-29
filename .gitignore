@@ -39,15 +39,14 @@ _minted*/
 *.md5
 *.dpth
 
-# ---- Build outputs (compile locally; preview lives in docs/) ----
+# ---- Build outputs (output/pdf/main.pdf is the tracked example) ----
 /*.pdf
-/arxiv-upload/
 /arxiv-upload.tar.gz
 /build/
 /out/
 
-# ---- Original brand assets (large .ai/.png source files, kept locally) ----
-/assets/
+# ---- Original brand asset files (large .ai/.png sources, kept locally) ----
+/assets/ELLIS/
 
 # ---- OS / editor ----
 .DS_Store

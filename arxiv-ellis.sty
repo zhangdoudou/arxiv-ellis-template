@@ -6,11 +6,10 @@
 % nips15submit_e.sty, including MK and drstrip@sandia.
 %
 % Changes relative to report.sty:
-%   - logo is configurable via \ellislogo[<height>]{<file>}
+%   - logo replaced with the ELLIS Institute Finland logo
 %   - removed anonymous-submission mode, line numbers and the
 %     NeurIPS paper-checklist macros (not needed for arXiv)
-%   - optional first-page footnote via \ellisnotice{...}
-%   - graphicx / xcolor / fancyhdr loaded explicitly
+%   - common packages (amsmath, booktabs, microtype, hyperref, ...) loaded here
 %
 % Usage:
 %   \usepackage{arxiv-ellis}              % natbib loaded automatically
@@ -30,29 +29,21 @@
 
 \ProcessOptions\relax
 
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
 \RequirePackage{graphicx}
 \RequirePackage{xcolor}
 \RequirePackage{fancyhdr}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{booktabs}
+\RequirePackage{microtype}
+\RequirePackage{url}
 
-% ---------------------------------------------------------------------
-% Logo configuration
-% ---------------------------------------------------------------------
-% \ellislogo[<height>]{<file>}  -- file may omit its extension; pdflatex
-% will pick .pdf / .png / .jpg. A vector PDF is recommended.
-\newcommand{\@ellislogofile}{ellis-institute-finland-logo}
-\newlength{\@ellislogoheight}
-\setlength{\@ellislogoheight}{19pt}
-\newcommand{\ellislogo}[2][]{%
-  \if\relax\detokenize{#1}\relax\else\setlength{\@ellislogoheight}{#1}\fi
-  \renewcommand{\@ellislogofile}{#2}%
-}
-
-% Optional footnote at the bottom of page 1 (empty by default)
+% Footnote at the bottom of page 1: empty, or "Preprint. Under review." with [preprint]
 \newcommand{\@noticestring}{}
 \if@preprint
   \renewcommand{\@noticestring}{Preprint. Under review.}
 \fi
-\newcommand{\ellisnotice}[1]{\renewcommand{\@noticestring}{#1}}
 
 % fonts
 \renewcommand{\rmdefault}{ptm}
@@ -286,7 +277,8 @@
 
 % ---------------------------------------------------------------------
 % Page styles: thin gray rule in the header on every page; the logo sits
-% above the rule on the first page only.
+% above the rule on the first page only. Change the logo file or height in
+% the \includegraphics line below; delete that line to omit the logo.
 % ---------------------------------------------------------------------
 \definecolor{ellisheadrule}{HTML}{4D4D4D}
 \pagestyle{fancy}
@@ -295,8 +287,17 @@
 \renewcommand{\headrule}{{\color{ellisheadrule}\hrule\@height\headrulewidth\@width\headwidth\vskip-\headrulewidth}}
 
 \fancypagestyle{firstpage}{
-  \lhead{\includegraphics[height=\@ellislogoheight]{\@ellislogofile}}
+  \lhead{
+  \includegraphics[height=19pt]{assets/ellis-institute-finland-logo.png}}
   \renewcommand{\headrule}{{\color{ellisheadrule}\hrule\@height\headrulewidth\@width\headwidth\vskip-\headrulewidth}}
 }
+
+% ---------------------------------------------------------------------
+% Hyperlinks (loaded last). Adjust with \hypersetup{...} in main.tex.
+% ---------------------------------------------------------------------
+\definecolor{ellislinkcolor}{HTML}{ED1C24}
+\definecolor{elliscitecolor}{HTML}{0071BC}
+\RequirePackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=ellislinkcolor,citecolor=elliscitecolor,urlcolor=elliscitecolor}
 
 \endinput
