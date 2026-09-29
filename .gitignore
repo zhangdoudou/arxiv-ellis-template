@@ -41,7 +41,6 @@ _minted*/
 
 # ---- Build outputs (output/pdf/main.pdf is the tracked example) ----
 /*.pdf
-/arxiv-upload.tar.gz
 /build/
 /out/
 

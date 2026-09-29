@@ -54,9 +54,8 @@ keeps the PDF. Rebuild and commit the example PDF after template changes.
 For Overleaf, upload the repository ZIP, select `main.tex` as the main document,
 and use pdfLaTeX.
 
-For arXiv, `make arxiv` writes `arxiv-upload.tar.gz` containing `main.tex`,
-`arxiv-ellis.sty`, `references.bib`, `assets/`, and the generated `main.bbl`.
-Upload that archive and select pdfLaTeX.
+For arXiv, include the source files, required assets, and the generated
+`output/pdf/main.bbl` copied alongside `main.tex` as `main.bbl`.
 
 This is a preprint style. For conference submissions, use the venue's required
 template and anonymity rules; this template has no anonymous review mode.
