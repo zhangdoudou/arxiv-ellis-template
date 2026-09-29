@@ -13,8 +13,7 @@ section, equation, table, figure, and appendix examples.
 2. Edit the title, authors, affiliations, email addresses, and PDF metadata in
    `main.tex`. Uncomment and replace the optional resource links if needed.
 3. Replace the example text in `main.tex` and the example entry in `references.bib`.
-4. Put figures in `assets/`.
-5. Build the PDF using the command below.
+4. Build the PDF using the command below.
 
 `main.tex` is the root document. Styling lives in `arxiv-ellis.sty`.
 The logo is set by one line in the `firstpage` style of `arxiv-ellis.sty`:
